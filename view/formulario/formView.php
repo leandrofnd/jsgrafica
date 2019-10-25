@@ -8,19 +8,18 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
-    <link rel="stylesheet" href="/public/css/formulario.css">
-
-   
+    <link rel="stylesheet" href="/public/css/formulario.css">  
     <title>JS Gráfica</title>
 </head>
 <body class="body" id="jsgrafica">
     <nav class="navbar barra fixed-top navbar-expand-lg justify-content-between">
-        <a class="navbar-brand ml-5 navLink" href="#jsgrafica">JS Gráfica</a>          
-        <?php if(!$isEdit): ?>
-        <a class="mr-5 navLink2" href="#formulario">Formulário</a>
-        <?php endif; ?>
-      </nav>
-    
+            <a class="navbar-brand ml-5 navLink" href="#jsgrafica">JS Gráfica</a>
+        <div class="navbar-nav">
+            <span class="mr-4 navLink2 text-white"> Bem Vindo, <?= $usuario->nome ?></span>
+            <a class="mr-4 navLink2 expand" href="<?= BASE . '/form-armazenado'?>">Meus Registros</a>         
+            <a class="mr-5 navLink2 expand" href="<?= BASE . '/logout'?>">Sair</a>
+        </div>
+    </nav>
     <?php if(!$isEdit): ?>
     <header class="alt-max image" id="particles-js">
         <div class="header">
@@ -49,36 +48,35 @@
         <div class="container">
             <h1 class="titulo text-center mb-0"><?= $isEdit ? 'SEUS DADOS' : 'FORMULÁRIO' ?></h1>
             <!-- <hr class="flinhat"></hr> -->
-            <form action="<?= BASE . '/formEnviado' . ($isEdit ? '?id=' . $usuario->getId() : "")?>" method="post" class="row mt-5 justify-content-center">
-                
+            <form action="<?= BASE . '/formEnviado?' .  ($isEdit ? 'registro_id=' . $registro->getId() : "")?>" method="post" class="row mt-5 justify-content-center">
                 <div class="form-group floating-label-form-group col-4">
                     <label for="cnpj">CNPJ</label>
-                    <input value="<?= $isEdit ? $usuario->getCnpj() : ""?>" class="form-control" type="text" name="cnpj" id="cnpj" placeholder="00.000.000/0000-00" required>
+                    <input value="<?= $isEdit ? $registro->getCnpj() : ""?>" class="form-control" type="text" name="cnpj" id="cnpj" placeholder="00.000.000/0000-00" required>
                     <hr class="flinha">   
                 </div>
                 <div class="form-group col-4">
                     <label for="nome">NOME</label>
-                    <input value="<?= $isEdit ? $usuario->getNome() : ""?>" type="text" name="nome" class="form-control" placeholder="Fulano Ciclano" required>
+                    <input value="<?= $isEdit ? $registro->getNome() : ""?>" type="text" name="nome" class="form-control" placeholder="Fulano Ciclano" required>
                     <hr class="flinha">   
                 </div>
                 <div class="form-group col-4">
                     <label for="telefone">TELEFONE</label>
-                    <input value="<?= $isEdit ? $usuario->getTelefone() : ""?>" type="tel" name="telefone" id="phone_with_ddd" class="form-control" placeholder="(00) 00000-0000" required>
+                    <input value="<?= $isEdit ? $registro->getTelefone() : ""?>" type="tel" name="telefone" id="phone_with_ddd" class="form-control" placeholder="(00) 00000-0000" required>
                     <hr class="flinha">   
                 </div>
                 <div class="form-group col-4">
                     <label for="cpf">CPF</label>
-                    <input value="<?= $isEdit ? $usuario->getCpf() : ""?>" type="text" name="cpf" id="cpf" class="form-control" placeholder="000.000.000-00" required>
+                    <input value="<?= $isEdit ? $registro->getCpf() : ""?>" type="text" name="cpf" id="cpf" class="form-control" placeholder="000.000.000-00" required>
                     <hr class="flinha">   
                 </div>
                 <div class="form-group col-4">
                     <label for="cpf-titular">CPF DO TITULAR</label>
-                    <input value="<?= $isEdit ? $usuario->getCpfTitular() : ""?>" type="text" name="cpf_titular" id="cpf-t"class="form-control" placeholder="000.000.000-00" required>
+                    <input value="<?= $isEdit ? $registro->getCpfTitular() : ""?>" type="text" name="cpf_titular" id="cpf-t"class="form-control" placeholder="000.000.000-00" required>
                     <hr class="flinha">   
                 </div>
                 <div class="form-group col-4">
                     <label for="fun">FUNÇÃO</label>
-                    <input value="<?= $isEdit ? $usuario->getFuncao() : ""?>" type="text" name="funcao" class="form-control" placeholder="Trabalho como..." required>
+                    <input value="<?= $isEdit ? $registro->getFuncao() : ""?>" type="text" name="funcao" class="form-control" placeholder="Trabalho como..." required>
                     <hr class="flinha">   
                 </div>
                 <div class="form-group col-4">
@@ -86,19 +84,19 @@
                     <select name="cidade" id="inputState" class="form-control" required>
                         <?php foreach($cidades as $cidade): ?>
                                                  <!-- id                                                             id -->
-                        <option value="<?= $cidade['cidade'] ?>" <?= ($isEdit && ($usuario->getCidade() == $cidade['cidade'])) ? 'selected' : ''?>> <?= $cidade['cidade'] ?> </option>
+                        <option value="<?= $cidade['cidade'] ?>" <?= ($isEdit && ($registro->getCidade() == $cidade['cidade'])) ? 'selected' : ''?>> <?= $cidade['cidade'] ?> </option>
                         <?php endforeach; ?>
                     </select>
                     <hr class="flinha">
                 </div>
                 <div class="form-group col-4">
                     <label for="qnt">QUANTIDADE</label>
-                    <input value="<?= $isEdit ? $usuario->getQuantidade() : ""?>" type="number" name="quantidade" class="form-control" placeholder="Em milhar" min="1000" required>
+                    <input value="<?= $isEdit ? $registro->getQuantidade() : ""?>" type="number" name="quantidade" class="form-control" placeholder="Em milhar" min="1000" required>
                     <hr class="flinha">   
                 </div>
                 <div class="form-group col-4">
                     <label for="email">SEU EMAIL</label>
-                    <input value="<?= $isEdit ? $usuario->getEmail() : ""?>" type="email" class="form-control" name="EMAIL_USER" id="email" placeholder="nome@email.com" required>
+                    <input value="<?= $isEdit ? $registro->getEmail() : ""?>" type="email" class="form-control" name="EMAIL_USER" id="email" placeholder="nome@email.com" required>
                     <hr class="flinha">   
                 </div>
                 <?php if(!$isEdit): ?>
@@ -141,8 +139,8 @@
                     </a>
                 </div>
                 <div class="col-4">
-                        <p class="rtitulo">SOBRE A EMPRESA</p>
-                        <hr class="rlinha">
+                    <p class="rtitulo">SOBRE A EMPRESA</p>
+                    <hr class="rlinha">
                 </div>
             </div>
         </div>

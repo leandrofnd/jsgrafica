@@ -24,18 +24,27 @@
                     <hr class="flinha"></hr>
                 </div>
                 <div class="col-12">
-                    <form action="/realiza-login" method="post"> 
+                    <form action=" <?= BASE . '/realizar-login' ?> " method="post"> 
                         <div class="form-group pt-5">
-                            <label for="email">E-mail</label>
-                            <input type="email" name="email" id="email" class="form-control">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="senha">Senha</label>
-                            <input type="password" name="senha" id="senha" class="form-control">
+                            <input type="password" name="senha" id="senha" class="form-control" required>
                         </div>
-                        <button class="botaoEnviar">
-                                ENTRAR
-                        </button>
+                        <div class="row mt-5">
+                            <div class="col-6">
+                                <button class="botaoEnviar">
+                                        ENTRAR
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <button class="botaoEnviar">
+                                        CADASTRAR
+                                </button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

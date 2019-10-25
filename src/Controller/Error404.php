@@ -20,6 +20,5 @@ class Error404 implements RequestHandlerInterface
 
         return new Response(200, [], $html);
         
-    
     }
 }

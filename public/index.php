@@ -3,8 +3,8 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use Nyholm\Psr7\Factory\Psr17Factory;
-use Nyholm\Psr7Server\ServerRequestCreator;
 use Psr\Container\ContainerInterface;
+use Nyholm\Psr7Server\ServerRequestCreator;
 use Psr\Http\Server\RequestHandlerInterface;
 
 require __DIR__ . '/../config/env.php';
@@ -14,14 +14,15 @@ $rotas = require __DIR__ . '/../config/routes.php';
 
 $classeExistente = verifyRouter($_SERVER['PATH_INFO']);
 
-// $caminho = $_SERVER['PATH_INFO'];
-
-// if (!array_key_exists($caminho, $rotas)) {
-//     http_response_code(404);
-//     exit();
-// }
+$caminho = $_SERVER['PATH_INFO']; 
 
 session_start();
+
+$ehRotaDeLogin = stripos($caminho, 'login');
+if (!isset($_SESSION['logado']) && $ehRotaDeLogin === false) {
+    header('Location:' . BASE . '/login');
+    exit();
+}
 
 
 $psr17Factory = new Psr17Factory();

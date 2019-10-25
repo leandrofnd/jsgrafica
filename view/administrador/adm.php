@@ -15,59 +15,50 @@
 <body class="body" id="jsgrafica">
     <nav class="navbar barra fixed-top navbar-expand-lg justify-content-between">
         <a class="navbar-brand ml-5 navLink" href="#jsgrafica">JS Gráfica</a>
-        <a class="mr-5 navLink2 expand" href="<?= BASE . '/logout'?>">Sair</a>
+        <a class="mr-5 navLink2" href="<?= BASE . '/logout'?>">Sair</a>
     </nav>
     <section class="dados pt-5" id="dados">
-        <form action="<?= BASE . '/formView'?> "method="post" class="container">
-            <h1 class="titulo text-center pt-5 "> SEUS REGISTROS</h1>
-            <div class="row justify-content-center mt-4">
-                <div class="col-6">
-                <?php foreach($registros as $registro):?>
-                    <ul class="list-group my-3 shadow">
-                        <li class="list-group-item d-flex ">
-                            CNPJ: <?= $registro->getCnpj();?>
-                        </li>
-                        <li class="list-group-item d-flex">
-                            Nome: <?= $registro->getNome();?>
-                        </li>
-                        <li class="list-group-item d-flex">
-                            Telefone: <?= $registro->getTelefone();?>
-                        </li>
-                        <li class="list-group-item d-flex">
-                            CPF: <?= $registro->getCpf();?>
-                        </li>
-                        <li class="list-group-item d-flex">
-                           CPF do titular: <?= $registro->getCpfTitular();?>
-                        </li>
-                        <li class="list-group-item d-flex">
-                            Função: <?= $registro->getFuncao();?>
-                        </li>
-                        <li class="list-group-item d-flex">
-                            Cidade: <?= $registro->getCidade();?>
-                        </li>
-                        <li class="list-group-item d-flex">
-                            Quantidade: <?= $registro->getQuantidade();?>
-                        </li>
-                        <li class="list-group-item d-flex">
-                            Total: R$ <?= $registro->getQuantidade() * 0.339 ;?>
-                        </li>
-                        <li class="list-group-item d-flex">
-                            Email: <?= $registro->getEmail();?>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-center">
-                            <div class="col-12">
-                                <button formaction="<?= BASE . '/formView?registro_id=' . $registro->getId() ?>" class="botaoEnviar">EDITAR</button>
-                            </div>
-                        </li>
-                    </ul>
-                <?php endforeach; ?>
-                </div>
-                <div class="col-12">
-                    <div class="row justify-content-center mt-5">
-                        <div class="col-3 mt-5">
-                            <button  class="botaoEnviar">FORMULÁRIO</button>
-                        </div>
-                    </div>
+        <form action="<?= BASE . '/formView?' . 'user=' . $usuario ?> "method="post" class="container">
+        <h1 class="titulo text-center pt-5 "> Olá Administrador!</h1>
+        <div class="row justify-content-center mt-4">
+            <div class="col-6">
+                    <?php foreach($user_data as $user):?>
+                        Usuário: <?= $user['nome_usuario']?>
+                        <?php foreach($user['registros'] as $registro):?>                   
+                            <ul class="list-group my-3 shadow">
+                                <li class="list-group-item d-flex ">
+                                    CNPJ: <?= $registro->getCnpj();?>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    Nome: <?= $registro->getNome();?>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    Telefone: <?= $registro->getTelefone();?>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    CPF: <?= $registro->getCpf();?>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    CPF do titular: <?= $registro->getCpfTitular();?>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    Função: <?= $registro->getFuncao();?>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    Cidade: <?= $registro->getCidade();?>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    Quantidade: <?= $registro->getQuantidade();?>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    Total: R$ <?= $registro->getQuantidade() * 0.339 ;?>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    Email: <?= $registro->getEmail();?>
+                                </li>
+                            </ul>
+                        <?php endforeach; ?>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </form>

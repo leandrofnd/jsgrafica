@@ -14,11 +14,13 @@ class EntityManagerCreator
         $isDevMode = false;
 
         $dbParams = array(
-            'dbname' => 'teste',
-            'user' => 'root',
+            'dbname'   => 'teste',
+            'user'     => 'root',
             'password' => '',
-            'host' => 'localhost',
-            'driver' => 'pdo_mysql',
+            'host'     => 'localhost',
+            'driver'   => 'pdo_mysql',
+            'charset'  => 'utf8',
+            'driveroptions'=>array(1002=>"SET NAMES utf8")
         );
 
         $config = Setup::createAnnotationMetadataConfiguration(

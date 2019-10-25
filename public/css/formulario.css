@@ -157,7 +157,7 @@ label
     font-weight: 600;
 }
 
-.navLink2:hover
+.expand:hover
 {
     transform: scale(1.07);
     transition: 0.5s;

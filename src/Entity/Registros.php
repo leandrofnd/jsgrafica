@@ -16,6 +16,14 @@ namespace Grafica\Projeto\Entity;
      * @Column(type="integer")
      */
     private $id;
+
+    /**
+     * @Column(type="integer")
+     * @ManyToOne(targetEntity="Usuario")
+     * @JoinColumn(name="id_usuario", referencedColumnName="id")
+     */
+    private $id_usuario;
+
     /**
      * @Column(type="string")
      */
@@ -62,6 +70,16 @@ namespace Grafica\Projeto\Entity;
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    public function getIdUsuario(): int
+    {
+        return $this->id_usuario;
+    }
+
+    public function setIdUsuario(int $usuario): void
+    {
+        $this->id_usuario = $usuario;
     }
 
     public function getCnpj(): string
@@ -153,6 +171,5 @@ namespace Grafica\Projeto\Entity;
     {
         $this->email = $email;
     }
-
 
 }
