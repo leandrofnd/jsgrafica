@@ -10,19 +10,23 @@ use Grafica\Projeto\Controller\{
     Error404,
     Logar,
     RealizarLogin,
-    Logout};
+    Logout,
+    Cadastro,
+    Registrar};
 
 function verifyRouter($searchRouter)
 {
     $routes = [
-        '/login' => Logar::Class,
-        '/realizar-login' => RealizarLogin::Class,
-        '/formView' => Formulario::class,
-        '/formEnviado' => Persistir::Class,
+        '/login'           => Logar::Class,
+        '/realizar-login'  => RealizarLogin::Class,
+        '/formView'        => Formulario::class,
+        '/formEnviado'     => Persistir::Class,
         '/form-armazenado' => FormArmazenado::Class,
-        '/adm' => Adm::Class, 
-        '/error404' => Error404::Class,
-        '/logout' =>Logout::Class,
+        '/adm'             => Adm::Class, 
+        '/error404'        => Error404::Class,
+        '/logout'          => Logout::Class,
+        '/cadastro'        => Cadastro::class,
+        '/registrar'       => Registrar::class
     ];
     return array_key_exists($searchRouter, $routes) ? $routes[$searchRouter] : $routes["/error404"];
 }

@@ -22,6 +22,7 @@
             <h1 class="titulo text-center pt-5 "> SEUS REGISTROS</h1>
             <div class="row justify-content-center mt-4">
                 <div class="col-6">
+                <?php if(!empty($registros)):?>
                 <?php foreach($registros as $registro):?>
                     <ul class="list-group my-3 shadow">
                         <li class="list-group-item d-flex ">
@@ -61,6 +62,9 @@
                         </li>
                     </ul>
                 <?php endforeach; ?>
+                <?php else: ?>
+                <h3 class="text-center">Você não possui registros!<h3>
+                <?php endif; ?>
                 </div>
                 <div class="col-12">
                     <div class="row justify-content-center mt-5">

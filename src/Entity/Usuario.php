@@ -49,10 +49,19 @@ class Usuario
     }
 
 
-    
-    // public function senhaEstaCorreta(string $senhaPura): bool
-    // {
-    //     return password_verify($senhaPura, $this->senha);
-    // }
+    public function setEmail(string $email): void
+    {
+        $this->email_login = $email;
+    }
+
+    public function setSenha(string $senha2): void
+    {
+        $this->senha = $senha2;
+    }
+
+    public function setNome(string $username): void
+    {
+        $this->nome = $username;
+    }
 
 }

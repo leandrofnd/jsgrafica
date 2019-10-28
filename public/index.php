@@ -2,8 +2,11 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+use Grafica\Projeto\Controller\Registrar;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Container\ContainerInterface;
+use Grafica\Projeto\Controller\Cadastro;
+use Grafica\Projeto\Helper\RenderizarHtml;
 use Nyholm\Psr7Server\ServerRequestCreator;
 use Psr\Http\Server\RequestHandlerInterface;
 
@@ -19,11 +22,11 @@ $caminho = $_SERVER['PATH_INFO'];
 session_start();
 
 $ehRotaDeLogin = stripos($caminho, 'login');
-if (!isset($_SESSION['logado']) && $ehRotaDeLogin === false) {
+
+if (!isset($_SESSION['logado']) && $ehRotaDeLogin === false && $classeExistente != Cadastro::class && $classeExistente != Registrar::class) {
     header('Location:' . BASE . '/login');
     exit();
 }
-
 
 $psr17Factory = new Psr17Factory();
 

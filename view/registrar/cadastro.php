@@ -14,30 +14,37 @@
 </head>
 <body  class="body" id="jsgrafica">
     <nav class="navbar barra fixed-top navbar-expand-lg justify-content-between">
-        <a class="navbar-brand ml-5 navLink" href="#jsgrafica">JS Gráfica</a>
+        <a class="navbar-brand ml-5 navLink" href="<?= BASE . '/login' ?>">JS Gráfica</a>
     </nav>
     <div class="container">
         <div class="login">
             <div class="row">
-                <div class="col-12 text-center">
-                    <h1>LOGIN</h1>
+                <div class="col-12 text-center mt-5">
+                    <h1>CADASTRO</h1>
                     <hr class="flinha"></hr>
                 </div>
                 <div class="col-12">
-                    <form action=" <?= BASE . '/realizar-login' ?> " method="post"> 
+                    <form action=" <?= BASE . '/registrar' ?> " method="post"> 
                         <div class="form-group pt-5">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="username" class="form-control" required>
+                        </div>
+                        <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" name="email" id="email" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="senha">Senha</label>
-                            <input type="password" name="senha" id="senha" class="form-control" required>
+                            <label for="senha1">Senha</label>
+                            <input type="password" name="senha1" id="senha1" class="form-control" required>
                         </div>
-                        <a class="justify-content-center expand text-dark" href="<?= BASE . '/cadastro'?>">Não possui login? Registre-se!</a>
+                        <div class="form-group">
+                            <label for="senha2">Confirmar Senha</label>
+                            <input type="password" name="senha2" id="senha2" class="form-control" required>
+                        </div>
                         <div class="row register justify-content-center mt-3">
-                            <div class="col-6">
+                            <div class="col-6 mt-3">
                                 <button class="botaoEnviar">
-                                    ENTRAR
+                                    PRONTO!
                                 </button>
                             </div>
                         </div>

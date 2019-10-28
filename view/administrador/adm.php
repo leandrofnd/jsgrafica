@@ -23,8 +23,12 @@
         <div class="row justify-content-center mt-4">
             <div class="col-6">
                     <?php foreach($user_data as $user):?>
-                        Usuário: <?= $user['nome_usuario']?>
-                        <?php foreach($user['registros'] as $registro):?>                   
+                        Usuário: "<?= $user['nome_usuario']?>"
+                        <?php if(empty($user['registros'])):?>
+                        não possui registros!
+                        <br>
+                        <?php else: ?>
+                        <?php foreach($user['registros'] as $registro):?>                  
                             <ul class="list-group my-3 shadow">
                                 <li class="list-group-item d-flex ">
                                     CNPJ: <?= $registro->getCnpj();?>
@@ -58,6 +62,7 @@
                                 </li>
                             </ul>
                         <?php endforeach; ?>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
             </div>

@@ -13,6 +13,7 @@ use Doctrine\Common\Persistence\ObjectRepository;
 
 class RealizarLogin implements  RequestHandlerInterface
 {
+
     use RenderizarHtml;
 
     /**
@@ -42,17 +43,15 @@ class RealizarLogin implements  RequestHandlerInterface
         /** @var Usuario $usuario */
         $usuario = $this->repositorio
         ->findOneBy([
-            'email_login' => $email,
-            'senha' => $senha,
+            'email_login' => $email
         ]);
         
-        if(is_null($usuario)){
+        if(is_null($usuario)||!password_verify($senha, $usuario->senha)){
             return new Response(300, ['Location' => BASE . "/login"]);
         }
 
         $_SESSION['logado'] = json_encode($usuario);
         
-        // echo(json_last_error_msg ());
         if($usuario->is_admin == '1'){
             return new Response(300, ['Location' => BASE . "/adm"]);
         }

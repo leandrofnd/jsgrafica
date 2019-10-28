@@ -10,8 +10,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Grafica\Projeto\Helper\RenderizarHtml;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-// use Doctrine\Common\Persistence\ObjectRepository;
-
 
 class Adm implements RequestHandlerInterface
 {

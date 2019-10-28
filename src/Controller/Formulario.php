@@ -35,6 +35,10 @@ class Formulario implements RequestHandlerInterface
             $registro_id = $request->getQueryParams()['registro_id'];
             $isEdit = true;
         }
+
+        if(!isset($registro_id)){
+            echo"Não possui registros!";
+        }
     
         $cidades = include(__DIR__ . '/CollectionCidades.php');
         $response = [
