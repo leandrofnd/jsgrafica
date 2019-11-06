@@ -9,12 +9,14 @@ use Doctrine\ORM\EntityManagerInterface;
 use Grafica\Projeto\Helper\RenderizarHtml;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Grafica\Projeto\Helper\FlashMessageTrait;
 use Doctrine\Common\Persistence\ObjectRepository;
 
 class RealizarLogin implements  RequestHandlerInterface
 {
 
     use RenderizarHtml;
+    use FlashMessageTrait;
 
     /**
      * @var \Doctrine\Common\Persistence\ObjectRepository
@@ -47,6 +49,7 @@ class RealizarLogin implements  RequestHandlerInterface
         ]);
         
         if(is_null($usuario)||!password_verify($senha, $usuario->senha)){
+            $this->defineMensagem('danger', 'E-mail ou senha inválidos');
             return new Response(300, ['Location' => BASE . "/login"]);
         }
 

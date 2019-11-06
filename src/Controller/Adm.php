@@ -50,6 +50,7 @@ class Adm implements RequestHandlerInterface
             ]);
 
             $allRegistros[] = [
+                'id_usuario' => $usuario->id,
                 'nome_usuario' => $usuario->nome,
                 'registros' => $registros
             ];

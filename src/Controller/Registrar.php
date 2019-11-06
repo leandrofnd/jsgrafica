@@ -8,9 +8,13 @@ use Psr\Http\Message\ResponseInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Grafica\Projeto\Helper\FlashMessageTrait;
 
 class Registrar implements RequestHandlerInterface
 {
+
+    use FlashMessageTrait;
+
      /**
      * @var \Doctrine\ORM\EntityManagerInterface
      */
@@ -55,8 +59,13 @@ class Registrar implements RequestHandlerInterface
           $usuario = $this->repositorio
           ->findOneBy([
               'email_login' => $email,
-              'senha' => $senha2,
           ]);
+
+        if($senha1 != $senha2){
+            $this->defineMensagem('danger', 'As senhas não batem!');
+            $resposta = new Response (300, ['Location' => BASE . '/cadastro']);
+            return $resposta;
+        }
 
         if(!isset($usuario) && $senha1 == $senha2){
             $usuario = new Usuario();
@@ -76,8 +85,8 @@ class Registrar implements RequestHandlerInterface
             $resposta = new Response (300, ['Location' => BASE . '/formView']);
             return $resposta;
         }else{
-            echo('Usuário já existente!');
-            $resposta = new Response (300, ['Location' => BASE . '/login']);
+            $this->defineMensagem('danger', 'Este email já existe...');
+            $resposta = new Response (300, ['Location' => BASE . '/cadastro']);
             return $resposta;
         }
     }

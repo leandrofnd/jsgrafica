@@ -76,7 +76,7 @@
                 </div>
                 <div class="form-group col-4">
                     <label for="fun">FUNÇÃO</label>
-                    <input value="<?= $isEdit ? $registro->getFuncao() : ""?>" type="text" name="funcao" class="form-control" placeholder="Trabalho como..." required>
+                    <input value="<?= $isEdit ? $registro->getFuncao() : ""?>" type="text" id="fun" name="funcao" class="form-control" placeholder="Trabalho como..." required>
                     <hr class="flinha">   
                 </div>
                 <div class="form-group col-4">

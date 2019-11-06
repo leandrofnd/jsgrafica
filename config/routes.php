@@ -12,7 +12,8 @@ use Grafica\Projeto\Controller\{
     RealizarLogin,
     Logout,
     Cadastro,
-    Registrar};
+    Registrar,
+    EnviarObs};
 
 function verifyRouter($searchRouter)
 {
@@ -26,7 +27,8 @@ function verifyRouter($searchRouter)
         '/error404'        => Error404::Class,
         '/logout'          => Logout::Class,
         '/cadastro'        => Cadastro::class,
-        '/registrar'       => Registrar::class
+        '/registrar'       => Registrar::class,
+        '/enviarObs'       => EnviarObs::Class
     ];
     return array_key_exists($searchRouter, $routes) ? $routes[$searchRouter] : $routes["/error404"];
 }

@@ -18,24 +18,36 @@
     </nav>
     <div class="container">
         <div class="login">
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-12 text-center">
                     <h1>LOGIN</h1>
                     <hr class="flinha"></hr>
                 </div>
-                <div class="col-12">
-                    <form action=" <?= BASE . '/realizar-login' ?> " method="post"> 
-                        <div class="form-group pt-5">
+                <div class="col-auto">
+                    <form class="row formT" action=" <?= BASE . '/realizar-login' ?> " method="post"> 
+                        <div class="form-group col-12 mt-3">
                             <label for="email">Email</label>
                             <input type="email" name="email" id="email" class="form-control" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-12">
                             <label for="senha">Senha</label>
                             <input type="password" name="senha" id="senha" class="form-control" required>
                         </div>
-                        <a class="justify-content-center expand text-dark" href="<?= BASE . '/cadastro'?>">Não possui login? Registre-se!</a>
+                        <div class="col-12">
+                        <?php if(isset ($_SESSION['mensagem'])) : ?>
+                            <div class="alert font-weight-bold alert-<?= $_SESSION['tipo_mensagem']; ?>">
+                                <?= $_SESSION['mensagem']; ?>
+                            </div>
+                        <?php  
+                            unset($_SESSION['mensagem']);
+                            unset($_SESSION['tipo_mensagem']);
+                        endif; ?>
+                        </div>
                         <div class="row register justify-content-center mt-3">
-                            <div class="col-6">
+                            <div class="col-auto">
+                                <a class="font-weight-bold text-center text-muted justify-content-center text-dark" href="<?= BASE . '/cadastro'?>">Não possui login? Registre-se!</a>
+                            </div>
+                            <div class="col-6 mt-5">
                                 <button class="botaoEnviar">
                                     ENTRAR
                                 </button>

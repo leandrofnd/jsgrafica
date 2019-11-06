@@ -41,6 +41,14 @@
                             <label for="senha2">Confirmar Senha</label>
                             <input type="password" name="senha2" id="senha2" class="form-control" required>
                         </div>
+                        <?php if(isset ($_SESSION['mensagem'])) : ?>
+                            <div class="alert alert-<?= $_SESSION['tipo_mensagem']; ?>">
+                                <?= $_SESSION['mensagem']; ?>
+                            </div>
+                        <?php  
+                            unset($_SESSION['mensagem']);
+                            unset($_SESSION['tipo_mensagem']);
+                        endif; ?>
                         <div class="row register justify-content-center mt-3">
                             <div class="col-6 mt-3">
                                 <button class="botaoEnviar">
