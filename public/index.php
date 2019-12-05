@@ -12,7 +12,6 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 require __DIR__ . '/../config/env.php';
 
-
 $rotas = require __DIR__ . '/../config/routes.php';
 
 $classeExistente = verifyRouter($_SERVER['PATH_INFO']);

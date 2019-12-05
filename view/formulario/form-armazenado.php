@@ -13,70 +13,100 @@
     <title>JS Gráfica</title>
 </head>
 <body class="body" id="jsgrafica">
-    <nav class="navbar barra fixed-top navbar-expand-lg justify-content-between">
-        <a class="navbar-brand ml-5 navLink" href="#jsgrafica">JS Gráfica</a>
-        <a class="mr-5 navLink2 expand" href="<?= BASE . '/logout'?>">Sair</a>
+<nav class="navbar barra fixed-top navbar-expand-lg justify-content-between">
+            <a class="navbar-brand ml-5 navLink" href="#jsgrafica">JS Gráfica</a>
+        <div class="navbar-nav">
+            <a class="mr-4 navLink2 expand" href="<?= BASE . '/formView'?>">Formulário</a>         
+            <a class="mr-5 navLink2 expand" href="<?= BASE . '/logout'?>">Sair</a>
+        </div>
     </nav>
     <section class="dados pt-5" id="dados">
         <form action="<?= BASE . '/formView'?> "method="post" class="container">
             <h1 class="titulo text-center pt-5 "> SEUS REGISTROS</h1>
             <div class="row justify-content-center mt-4">
-                <div class="col-6">
+                <?php if($isObservacao):?>
+                    <div id="alertObs" class="alert alert-info col-7 text-center">
+                        <label>
+                            Você possui uma observação!
+                            <i class="ml-2 far fa-times-circle" onClick="remove('alertObs')" ></i>                    
+                        </label>
+                    </div>
+                <?php endif; ?>
+                <?php if($isArquivo):?>
+                    <?php foreach($arquivos as $arquivo): ?>
+                    <div id="alertObs" class="alert alert-info col-7 text-center">
+                        <label>
+                            <a class="text-reset" href="<?='/public/uploads/' . $arquivo->getFile() ?>">Você possui um arquivo, clique para vizualizar.</a> 
+                            <i class="ml-2 far fa-times-circle" onClick="remove('alertObs')" ></i>                    
+                        </label>
+                    </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                <div class="col-12">
                 <?php if(!empty($registros)):?>
                 <?php foreach($registros as $registro):?>
-                    <ul class="list-group my-3 shadow">
-                        <li class="list-group-item d-flex ">
-                            CNPJ: <?= $registro->getCnpj();?>
-                        </li>
-                        <li class="list-group-item d-flex">
-                            Nome: <?= $registro->getNome();?>
-                        </li>
-                        <li class="list-group-item d-flex">
-                            Telefone: <?= $registro->getTelefone();?>
-                        </li>
-                        <li class="list-group-item d-flex">
-                            CPF: <?= $registro->getCpf();?>
-                        </li>
-                        <li class="list-group-item d-flex">
-                           CPF do titular: <?= $registro->getCpfTitular();?>
-                        </li>
-                        <li class="list-group-item d-flex">
-                            Função: <?= $registro->getFuncao();?>
-                        </li>
-                        <li class="list-group-item d-flex">
-                            Cidade: <?= $registro->getCidade();?>
-                        </li>
-                        <li class="list-group-item d-flex">
-                            Quantidade: <?= $registro->getQuantidade();?>
-                        </li>
-                        <li class="list-group-item d-flex">
-                            Total: R$ <?= $registro->getQuantidade() * 0.339 ;?>
-                        </li>
-                        <li class="list-group-item d-flex">
-                            Email: <?= $registro->getEmail();?>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-center">
-                            <div class="col-12">
+                    <div class="border border-dark my-2 p-2 rounded mt-4">
+                        <table class="table table-responsive table-active mt-3">
+                            <thead class="thead-dark ">                               
+                                <tr>
+                                    <th>CNPJ</th>
+                                    <th>NOME</th>
+                                    <th>TELEFONE</th>
+                                    <th>CPF</th>
+                                    <th>CPF DO TITULAR</th>
+                                    <th>FUNÇÃO</th>
+                                    <th>CIDADE</th>
+                                    <th>QUANTIDADE</th>
+                                    <th>TOTAL</th>
+                                    <th>EMAIL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><?= $registro->getCnpj();?></td>
+                                    <td><?= $registro->getNome();?></td>
+                                    <td><?= $registro->getTelefone();?></td>
+                                    <td><?=$registro->getCpf();?></td>
+                                    <td><?= $registro->getCpfTitular();?></td>
+                                    <td><?= $registro->getFuncao();?></td>
+                                    <td><?= $registro->getCidade();?></td>
+                                    <td><?= $registro->getQuantidade();?></td>
+                                    <td><?= $registro->getQuantidade() *  0.339 ;?></td>
+                                    <td><?= $registro->getEmail();?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row justify-content-center">
+                            <div class="col-2">
                                 <button formaction="<?= BASE . '/formView?registro_id=' . $registro->getId() ?>" class="botaoEnviar">EDITAR</button>
                             </div>
-                        </li>
-                    </ul>
+                            <?php if(!empty($registro->observacoes)):?>
+                            <?php foreach($registro->observacoes as $observacao): ?>
+                                <div <?= 'id="alert-' . $registro->getId() . $observacao->getId().'"' ?> class="alert alert-info ml-2 col-auto text-center">
+                                    <label> 
+                                        <u> <?= $observacao->observacao ?> </u>
+                                    </label>
+                                </div>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>                       
+                    </div>
                 <?php endforeach; ?>
                 <?php else: ?>
-                <h3 class="text-center">Você não possui registros!<h3>
+                    <h3 class="text-center">Você não possui registros!<h3>
                 <?php endif; ?>
                 </div>
                 <div class="col-12">
-                    <div class="row justify-content-center mt-5">
+                    <div class="row justify-content-center">
                         <div class="col-3 mt-5">
-                            <button  class="botaoEnviar">FORMULÁRIO</button>
+                            <button class="botaoEnviar">FORMULÁRIO</button>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
     </section>
-    <footer class="rodape mt-5">
+    <footer class="rodape">
             <div class="container">
                 <div class="row text-center pt-5">
                     <div class="col-4">
@@ -113,4 +143,13 @@
             </div>
         </section>
 </body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+
+<script>
+    function remove(elemento_id) {
+        $(`#${elemento_id}`).remove()
+    }
+</script>
 </html>
+

@@ -27,15 +27,15 @@ class EnviarObs implements RequestHandlerInterface
         $post = $request->getParsedBody();
 
         $id_usuario = $request->getQueryParams()['id_usuario'];
-
+        $id_registro = $request->getQueryParams()['id_registro'];
+        
         try {
             $observacao = new Observacao($this->entityManager);
-            $observacao->make($post, $id_usuario);
+            $observacao->make($post, $id_usuario, $id_registro);
             $observacao->save();
         } catch (Exception $e) {
             echo $e->getMessage();
         }
-
 
         $this->defineMensagem('info', 'Observação enviada!');
         return new Response(300, ['Location' => BASE . "/adm"]);

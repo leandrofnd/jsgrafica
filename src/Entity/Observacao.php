@@ -6,7 +6,6 @@ namespace Grafica\Projeto\Entity;
  * @Entity
  * @Table(name="observacoes")
  */
-
  class Observacao
 {
     /**
@@ -31,7 +30,14 @@ namespace Grafica\Projeto\Entity;
      /**
      * @Column(type="string")
      */
-    private $observacao;
+    public $observacao;
+
+     /**
+     * @Column(type="integer")
+     * @ManyToOne(targetEntity="Registros")
+     * @JoinColumn(name="id_registro", referencedColumnName="id")
+     */
+    public $id_registro;
 
     private $entityManager;
 
@@ -55,6 +61,16 @@ namespace Grafica\Projeto\Entity;
     public function setIdUsuario(int $id_usuario): void
     {
         $this->id_usuario = $id_usuario;
+    }
+
+    public function getIdRegistro(): int
+    {
+        return $this->id_registro;
+    }
+
+    public function setIdRegistro(int $id_registro): void
+    {
+        $this->id_registro = $id_registro;
     }
 
     public function getCampo(): string
@@ -83,16 +99,18 @@ namespace Grafica\Projeto\Entity;
         $this->repositorio = $this->entityManager->getRepository(self::Class);
     }
     
-    public function make(array $data = [], int $id_usuario)
+    public function make(array $data = [], int $id_usuario, $id_registro)
     {
+        
         if(empty($data))
-            throw new \Exception("Não há data", 401);            
+            throw new \Exception("Não há data", 401);
 
         foreach ($data as $key => $value) {
             $verifyed = filter_var(
                 $value,
                 FILTER_SANITIZE_STRING
             );
+            $this->setIdRegistro($id_registro);
             $this->setIdUsuario($id_usuario);
             $this->setCampo($key);
             $this->setObservacao($verifyed);

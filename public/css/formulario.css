@@ -246,6 +246,11 @@ label
     height: 65px;
 }
 
+.bg-green-dark
+{
+    background: rgb(13, 99, 105);
+}
+
 .login
 {
     position: absolute !important;

@@ -28,39 +28,32 @@
         <section class="dados pt-5" id="dados">
             <!-- <h1 class="titulo text-center pt-5 text-dark"> Olá Administrador!</h1> -->
             <div class="container">
-                <div class="row justify-content-center mt-4">
-                <div class="col-12 mt-2">
-                    <?php if(isset ($_SESSION['mensagem'])) : ?>
-                        <div class="alert font-weight-bold alert-<?= $_SESSION['tipo_mensagem']; ?>">
-                            <?= $_SESSION['mensagem']; ?>
-                        </div>
-                    <?php  
-                        unset($_SESSION['mensagem']);
-                        unset($_SESSION['tipo_mensagem']);
-                    endif; ?>
-                </div>
+                <div class="row justify-content-center mt-4 border shadow border-dark mt-5">
+                    <div class="col-12 mt-2">
+                        <?php if(isset ($_SESSION['mensagem'])) : ?>
+                            <div class="alert font-weight-bold alert-<?= $_SESSION['tipo_mensagem']; ?>">
+                                <?= $_SESSION['mensagem']; ?>
+                            </div>
+                        <?php  
+                            unset($_SESSION['mensagem']);
+                            unset($_SESSION['tipo_mensagem']);
+                        endif; ?>
+                    </div>
                     <div class="col-auto">
                         <?php foreach($user_data as $user):?>
-                            <div class="border border-dark my-2 p-2 rounded mt-4">
+                            <div class="border shadow-lg border-dark my-2 p-2 rounded mt-4">
                                 <h3><?= $user['nome_usuario'] ?></h3>
                                 <?php if(empty($user['registros'])):?>
                                     não possui registros!
                                     <br>
                                 <?php else: ?>
                                     <?php foreach($user['registros'] as $registro):?>                  
-                                        <table class="table mt-3">
+                                        <table class="table table-active mt-3">
                                             <thead class="thead-dark">
                                                 <tr>
                                                     <th scope="col">CNPJ</th>
                                                     <th scope="col">NOME</th>
                                                     <th scope="col">TELEFONE</th>
-                                                    <!-- <th scope="col">CPF</th>
-                                                    <th scope="col">CPF DO TITULAR</th>
-                                                    <th scope="col">FUNÇÃO</th>
-                                                    <th scope="col">CIDADE</th>
-                                                    <th scope="col">QUANTIDADE</th>
-                                                    <th scope="col">TOTAL</th>
-                                                    <th scope="col">EMAIL</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -68,47 +61,82 @@
                                                     <td><?= $registro->getCnpj();?></td>
                                                     <td><?= $registro->getNome();?></td>
                                                     <td><?= $registro->getTelefone();?></td>
-                                                    <!-- <td><?/*=$registro->getCpf();*/?></td>
-                                                    <td><?/*= $registro->getCpfTitular()*/;?></td>
-                                                    <td><?/*= $registro->getFuncao()*/;?></td>
-                                                    <td><?/*= $registro->getCidade()*/;?></td>
-                                                    <td><?/*= $registro->getQuantidade()*/;?></td>
-                                                    <td><?/*= $registro->getQuantidade()  0.339 */;?></td>
-                                                    <td><?/*= $registro->getEmail()*/;?></td> -->
-                                                </tr>
                                             </tbody>
                                         </table>
                                         <div>
-                                            <button onclick="botaoAlert(<?=  $user['id_usuario'] ?>, '<?=  $user['nome_usuario'] ?>')" class="btn btn-dark">Observação</button>                                    
-                                            <button type="button" class="btn btn-dark">Anexar</button>
-                                            <button type="button" class="btn btn-dark" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fas fa-plus"></i></button>
-                                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-lg">
-                                                    <div class="modal-content">
-                                                        <table class="table table-responsive">
-                                                            <thead class="thead-dark">
-                                                                <tr>
-                                                                    <th scope="col">CPF</th>
-                                                                    <th scope="col">CPF DO TITULAR</th>
-                                                                    <th scope="col">FUNÇÃO</th>
-                                                                    <th scope="col">CIDADE</th>
-                                                                    <th scope="col">QUANTIDADE</th>
-                                                                    <th scope="col">TOTAL</th>
-                                                                    <th scope="col">EMAIL</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td><?=$registro->getCpf();?></td>
-                                                                    <td><?= $registro->getCpfTitular();?></td>
-                                                                    <td><?= $registro->getFuncao();?></td>
-                                                                    <td><?= $registro->getCidade();?></td>
-                                                                    <td><?= $registro->getQuantidade();?></td>
-                                                                    <td><?= $registro->getQuantidade() * 0.339 ;?></td>
-                                                                    <td><?= $registro->getEmail();?></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
+                                            <button onclick="botaoAlert(<?=  $user['id_usuario'] ?>, '<?=  $user['nome_usuario'] ?>', '<?= $registro->getId() ?>')" class="btn btn-dark">Observação</button>                                    
+                                            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalAnexar">Anexar</button>
+                                            <div class="modal fade modal-xl" id="modalAnexar" tabindex="-1" role="dialog">
+                                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                                    <div class="modal-content">                            
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Anexar Arquivos</h5>
+                                                            <button type="button" class="close" data-dismiss="modal">
+                                                                <span>&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="col-auto">
+                                                                <form action="<?= BASE . '/upload?id_usuario=' . $user['id_usuario'] . '&id_registro=' . $registro->getId()?>" method="post" enctype="multipart/form-data">  
+                                                                    <div class="row justify-content-center">
+                                                                        <div class="col-auto">
+                                                                            <input type="file" name="file"> 
+                                                                            <button class="btn btn-dark" type="submit">Enviar</button>
+                                                                            <!-- <div class="input-group">
+                                                                                <div class="custom-file">
+                                                                                    <input type="file" name="file" class="custom-file-input">
+                                                                                    <label class="custom-file-label">Escolha o Arquivo</label>
+                                                                                </div>
+                                                                                <div class="input-group-append">
+                                                                                    <button class="btn btn-dark" type="submit">Enviar</button>
+                                                                                </div>
+                                                                            </div> -->
+                                                                        </div>
+                                                                    </div>
+                                                                </form>                     
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalMais"><i class="fas fa-plus"></i></button>
+                                            <div class="modal fade modal-xl" id="modalMais" tabindex="-1" role="dialog">
+                                                <div class="modal-dialog modal-xl" role="document">
+                                                    <div class="modal-content">                            
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Descrições restantes</h5>
+                                                            <button type="button" class="close" data-dismiss="modal">
+                                                                <span>&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body row justify-content-center">
+                                                            <div class="col-auto" >
+                                                                <table class="table table-responsive">
+                                                                    <thead class="thead-dark">
+                                                                        <tr>
+                                                                            <th scope="col">CPF</th>
+                                                                            <th scope="col">CPF DO TITULAR</th>
+                                                                            <th scope="col">FUNÇÃO</th>
+                                                                            <th scope="col">CIDADE</th>
+                                                                            <th scope="col">QUANTIDADE</th>
+                                                                            <th scope="col">TOTAL</th>
+                                                                            <th scope="col">EMAIL</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td><?=$registro->getCpf();?></td>
+                                                                            <td><?= $registro->getCpfTitular();?></td>
+                                                                            <td><?= $registro->getFuncao();?></td>
+                                                                            <td><?= $registro->getCidade();?></td>
+                                                                            <td><?= $registro->getQuantidade();?></td>
+                                                                            <td><?= $registro->getQuantidade() * 0.339 ;?></td>
+                                                                            <td><?= $registro->getEmail();?></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>                                   
@@ -164,18 +192,20 @@
 
 </html>
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.js"></script>
 <!-- <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <script>
 
-    function botaoAlert(id_usuario, nome_usuario){
+    function botaoAlert(id_usuario, nome_usuario, id_registro){
         Swal.fire({
             type: 'info',
             title: `<strong>Observações para <u>${nome_usuario}</u></strong>`,
             html:
-                `<form id="formularioModal" action="<?= BASE . '/enviarObs?id_usuario='?>${id_usuario}" method="post" class="row mt-5 justify-content-center">` +
+                `<form id="formularioModal" action="<?= BASE . '/enviarObs?id_usuario='?>${id_usuario}&id_registro=${id_registro}" method="post" class="mt-3 justify-content-center">` +
                     '<div class="btn-group">' +
                         '<label>Campo</label>'+
                         '<select id="select-modal" class="ml-3">'+
@@ -190,11 +220,11 @@
                             '<option value="total">Total</option>' +   
                             '<option value="email">Email</option>' +   
                         '</select>' +
-                    '<span onClick="add()" class="btn btn-dark"><i class="fas fa-plus"></i></span>' +
+                        '<span onClick="add()" class="btn btn-dark"><i class="fas fa-plus"></i></span>' +
                     '</div>' +
-                '<div>' +
-                ` <button  class="btn btn-dark mt-3" type="submit">Enviar</button> ` +
-                '</div>'+
+                    '<div class="row justify-content-center mt-3">' +
+                        ` <button  class="btn btn-dark mt-3" type="submit">Enviar</button> ` +
+                    '</div>'+
                 '</form>', 
             showCloseButton: false,
             showCancelButton: false,

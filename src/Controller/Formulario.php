@@ -10,7 +10,7 @@ use Grafica\Projeto\Helper\RenderizarHtml;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class Formulario implements RequestHandlerInterface
+class Formulario implements RequestHandlerInterface 
 {
     use RenderizarHtml;
 
@@ -51,6 +51,5 @@ class Formulario implements RequestHandlerInterface
         $html = $this->renderizaHtml('formulario/formView.php', $response);
 
         return new Response(200, [], $html);
-            
     }
 }
